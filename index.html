@@ -845,29 +845,33 @@ details.move summary { font-weight: 700; cursor: pointer; min-height: 44px; disp
   document.querySelectorAll("[data-go]").forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.go); }); });
 
   /* ---------- Copy all answers ---------- */
-  function fmt(q, v) {
+  function fmt(q, v, compact) {
     if (!isAnswered(q, v)) return "(skipped)";
+    function keep(x) { return !compact || x; }
     switch (q.type) {
       case "text": case "long": return String(v).trim();
       case "one": return v;
       case "many": var a = (v.picks || []).slice(); if (v.other && v.other.trim()) a.push("Other: " + v.other.trim()); return a.join("; ");
-      case "grid": return "\n" + q.rows.map(function (r) { return "   - " + r + " " + (v[r] || "(skipped)"); }).join("\n");
-      case "story": return "\n" + q.parts.map(function (p) { return "   - " + p.label + " " + (String(v[p.id] || "").trim() || "(skipped)"); }).join("\n");
+      case "grid": return "\n" + q.rows.filter(function (r) { return keep(v[r]); }).map(function (r) { return "   - " + r + " " + (v[r] || "(skipped)"); }).join("\n");
+      case "story": return "\n" + q.parts.filter(function (p) { return keep(String(v[p.id] || "").trim()); }).map(function (p) { return "   - " + p.label + " " + (String(v[p.id] || "").trim() || "(skipped)"); }).join("\n");
       case "three": return "\n" + q.labels.map(function (l, i) { return "   " + (i + 1) + ". " + (String(v["t" + i] || "").trim() || "(skipped)"); }).join("\n");
     }
     return "";
   }
-  function block(title, schema, obj) {
-    return "== " + title + " ==\n" + schema.map(function (q) { return "Q: " + q.q + "\nA: " + fmt(q, obj[q.id]); }).join("\n\n");
+  function qLines(schema, obj, compact) {
+    var shown = schema.filter(function (q) { return !compact || isAnswered(q, obj[q.id]); });
+    var out = shown.map(function (q) { return "Q: " + q.q + "\nA: " + fmt(q, obj[q.id], compact); }).join("\n\n");
+    var skipped = schema.length - shown.length;
+    if (compact && skipped) out += (out ? "\n\n" : "") + "(" + skipped + " question" + (skipped === 1 ? "" : "s") + " skipped or not answered yet)";
+    return out;
   }
-  function allText() {
-    var parts = ["THEO'S SCHOOL QUESTIONNAIRE\nSent " + new Date().toLocaleString(), block("About me", ABOUT, state.about)];
+  function allText(compact) {
+    var parts = ["THEO'S SCHOOL QUESTIONNAIRE\nSent " + new Date().toLocaleString(), "== About me ==\n" + qLines(ABOUT, state.about, compact)];
     classList().forEach(function (c) {
-      parts.push("== Class: " + className(c) + " (period " + (c.period || "?") + ")" + (c.adults ? ", other adults: " + c.adults : "") + " ==\n" +
-        CLASSQ.map(function (q) { return "Q: " + q.q + "\nA: " + fmt(q, c.answers[q.id]); }).join("\n\n"));
+      parts.push("== Class: " + className(c) + " (period " + (c.period || "?") + ")" + (c.adults ? ", other adults: " + c.adults : "") + " ==\n" + qLines(CLASSQ, c.answers, compact));
     });
-    parts.push(block("Rest of the day", DAYQ, state.day));
-    parts.push(block("My voice", VOICEQ, state.voice));
+    parts.push("== Rest of the day ==\n" + qLines(DAYQ, state.day, compact));
+    parts.push("== My voice ==\n" + qLines(VOICEQ, state.voice, compact));
     return parts.join("\n\n\n");
   }
   var DAD_EMAIL = "srutledge1283@gmail.com";
@@ -880,7 +884,7 @@ details.move summary { font-weight: 700; cursor: pointer; min-height: 44px; disp
     setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
   }
   document.getElementById("btn-send").addEventListener("click", function () {
-    var body = allText().replace(/\r?\n/g, "\r\n");
+    var body = allText(true).replace(/\r?\n/g, "\r\n");
     window.location.href = "mailto:" + DAD_EMAIL + "?subject=" + encodeURIComponent("Theo's school questionnaire answers") + "&body=" + encodeURIComponent(body);
   });
   document.getElementById("btn-copy").addEventListener("click", function () {
