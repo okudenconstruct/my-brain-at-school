@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Theo's School Questionnaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@400;600;700&display=swap">
+<style>
+/* Layout: one calm reading column, every question a color-blocked card keyed to its category, sticky reading toolbar on top */
+:root {
+  --bg: #FFFEF9; --surface: #FFFFFF; --ink: #101218; --muted: #3A3F4B; --line: #B9BECB; --focus: #1747D6; --on-k: #FFFFFF;
+  --me-k: #0B6B3A; --me-b: #E1F4E8;
+  --se-k: #00646D; --se-b: #DAF1F3;
+  --fo-k: #8A4500; --fo-b: #FFEFD3;
+  --pe-k: #5A2A9C; --pe-b: #EEE5FB;
+  --bo-k: #A0103D; --bo-b: #FCE3EB;
+  --he-k: #0B4DB0; --he-b: #E1EBFD;
+  --font-body: "Atkinson Hyperlegible", Verdana, Tahoma, sans-serif;
+  --font-display: "Lexend", "Atkinson Hyperlegible", Verdana, sans-serif;
+  --base: 19px; --lh: 1.6; --ls: 0em; --ws: 0em;
+  --k: var(--ink); --kb: var(--surface);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1016; --surface: #171B23; --ink: #F3F3EE; --muted: #C3C8D3; --line: #39404E; --focus: #7FB0FF; --on-k: #0D1016;
+    --me-k: #7FE0A8; --me-b: #10291C;
+    --se-k: #6FE3EC; --se-b: #0C2A2D;
+    --fo-k: #FFC266; --fo-b: #2E2210;
+    --pe-k: #C9A6FF; --pe-b: #231A38;
+    --bo-k: #FF8FB0; --bo-b: #3A1422;
+    --he-k: #8DB8FF; --he-b: #142240;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1016; --surface: #171B23; --ink: #F3F3EE; --muted: #C3C8D3; --line: #39404E; --focus: #7FB0FF; --on-k: #0D1016;
+  --me-k: #7FE0A8; --me-b: #10291C;
+  --se-k: #6FE3EC; --se-b: #0C2A2D;
+  --fo-k: #FFC266; --fo-b: #2E2210;
+  --pe-k: #C9A6FF; --pe-b: #231A38;
+  --bo-k: #FF8FB0; --bo-b: #3A1422;
+  --he-k: #8DB8FF; --he-b: #142240;
+  color-scheme: dark;
+}
+/* Theo's own color choice wins over the device setting */
+:root[data-look="light"] {
+  --bg: #FFFEF9; --surface: #FFFFFF; --ink: #101218; --muted: #3A3F4B; --line: #B9BECB; --focus: #1747D6; --on-k: #FFFFFF;
+  --me-k: #0B6B3A; --me-b: #E1F4E8;
+  --se-k: #00646D; --se-b: #DAF1F3;
+  --fo-k: #8A4500; --fo-b: #FFEFD3;
+  --pe-k: #5A2A9C; --pe-b: #EEE5FB;
+  --bo-k: #A0103D; --bo-b: #FCE3EB;
+  --he-k: #0B4DB0; --he-b: #E1EBFD;
+  color-scheme: light;
+}
+:root[data-look="dark"] {
+  --bg: #0D1016; --surface: #171B23; --ink: #F3F3EE; --muted: #C3C8D3; --line: #39404E; --focus: #7FB0FF; --on-k: #0D1016;
+  --me-k: #7FE0A8; --me-b: #10291C;
+  --se-k: #6FE3EC; --se-b: #0C2A2D;
+  --fo-k: #FFC266; --fo-b: #2E2210;
+  --pe-k: #C9A6FF; --pe-b: #231A38;
+  --bo-k: #FF8FB0; --bo-b: #3A1422;
+  --he-k: #8DB8FF; --he-b: #142240;
+  color-scheme: dark;
+}
+:root[data-look="soft"] {
+  --bg: #FAF4D6; --surface: #FFFBEA; --ink: #1B1B1B; --muted: #45433A; --line: #CFC69C; --focus: #1747D6; --on-k: #FFFFFF;
+  --me-k: #0B6B3A; --me-b: #DDEFD8;
+  --se-k: #00646D; --se-b: #D6ECE8;
+  --fo-k: #8A4500; --fo-b: #FBE7C2;
+  --pe-k: #5A2A9C; --pe-b: #E9E0F2;
+  --bo-k: #A0103D; --bo-b: #F7DCE0;
+  --he-k: #0B4DB0; --he-b: #DCE6F5;
+  color-scheme: light;
+}
+:root[data-font="lexend"] { --font-body: "Lexend", Verdana, Tahoma, sans-serif; }
+:root[data-font="verdana"] { --font-body: Verdana, Tahoma, sans-serif; }
+:root[data-spacing="wide"] { --lh: 1.9; --ls: 0.04em; --ws: 0.16em; }
+
+html { font-size: var(--base); }
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1rem; line-height: var(--lh);
+  letter-spacing: var(--ls); word-spacing: var(--ws);
+}
+.cat-me { --k: var(--me-k); --kb: var(--me-b); }
+.cat-se { --k: var(--se-k); --kb: var(--se-b); }
+.cat-fo { --k: var(--fo-k); --kb: var(--fo-b); }
+.cat-pe { --k: var(--pe-k); --kb: var(--pe-b); }
+.cat-bo { --k: var(--bo-k); --kb: var(--bo-b); }
+.cat-he { --k: var(--he-k); --kb: var(--he-b); }
+
+button, input, textarea { font: inherit; letter-spacing: inherit; word-spacing: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); border-bottom: 2px solid var(--line); }
+.bar-inner { max-width: 46rem; margin: 0 auto; padding: 0.55rem 16px; display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
+.status { font-size: 0.85rem; color: var(--muted); }
+.status[data-kind="error"] { color: var(--bo-k); font-weight: 700; }
+
+.btn { font-weight: 700; min-height: 44px; padding: 0.4rem 0.9rem; border-radius: 10px; border: 2px solid var(--ink); background: var(--surface); color: var(--ink); cursor: pointer; }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn.quiet { border-color: var(--line); }
+
+.settings { max-width: 46rem; margin: 0 auto; padding: 0.25rem 16px 0.9rem; display: grid; gap: 0.7rem; }
+.set-group { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.set-group > span { font-weight: 700; min-width: 7.5rem; }
+.seg { min-height: 44px; padding: 0.35rem 0.8rem; border-radius: 10px; border: 2px solid var(--ink); background: var(--surface); cursor: pointer; }
+.seg[aria-pressed="true"] { background: var(--ink); color: var(--bg); font-weight: 700; }
+
+.wrap { max-width: 46rem; margin: 0 auto; padding-inline: 16px; padding-block: 0 4rem; }
+.tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block: 1.1rem 1.4rem; }
+.tab { min-height: 44px; padding: 0.4rem 0.85rem; border-radius: 10px; border: 2px solid var(--line); background: var(--surface); cursor: pointer; text-align: left; }
+.tab[aria-current="page"] { border-color: var(--ink); background: var(--ink); color: var(--bg); font-weight: 700; }
+.tab .count { display: block; font-size: 0.75rem; opacity: 0.85; font-weight: 400; }
+
+h1, h2 { font-family: var(--font-display); text-wrap: balance; line-height: 1.25; margin: 0; }
+h1 { font-size: 1.9rem; }
+h2 { font-size: 1.45rem; }
+.band { background: var(--kb); border: 2px solid var(--k); border-radius: 14px; padding: 1rem 1.15rem; display: grid; gap: 0.35rem; margin-bottom: 1rem; }
+.band p { margin: 0; }
+.stack { display: grid; gap: 1rem; }
+.prose { display: grid; gap: 0.9rem; }
+.prose p { margin: 0; }
+.prose ul { margin: 0; padding-left: 1.3rem; display: grid; gap: 0.35rem; }
+
+.legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0.5rem; }
+.legend div { background: var(--kb); border: 2px solid var(--k); border-radius: 10px; padding: 0.45rem 0.75rem; font-weight: 700; min-width: 0; }
+
+.q { background: var(--kb); border: 2px solid transparent; border-radius: 14px; padding: 1rem 1.1rem 1.15rem; display: grid; gap: 0.6rem; min-width: 0; }
+.q:focus-within { border-color: var(--k); }
+:root[data-focus="on"] .q:not(:focus-within):not(:hover) { opacity: 0.42; }
+.meta { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.chip { font-size: 0.8rem; font-weight: 700; color: var(--k); background: var(--surface); border: 2px solid var(--k); border-radius: 999px; padding: 0.05rem 0.65rem; }
+.read { font-size: 0.85rem; font-weight: 700; min-height: 40px; padding: 0.15rem 0.8rem; border-radius: 999px; border: 2px solid var(--k); background: transparent; cursor: pointer; }
+.read[aria-pressed="true"] { background: var(--k); color: var(--on-k); }
+:root[data-voice="off"] .read { display: none; }
+.q h3 { margin: 0; font-size: 1.15rem; line-height: 1.4; font-weight: 700; }
+.hint { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+.opts { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.opt { font-size: 0.95rem; min-height: 44px; padding: 0.35rem 0.8rem; border-radius: 10px; border: 2px solid var(--k); background: var(--surface); cursor: pointer; text-align: left; }
+.opt[aria-pressed="true"] { background: var(--k); color: var(--on-k); font-weight: 700; }
+.opt[aria-pressed="true"]::before { content: "\2713\00a0"; }
+.opt.unsure { border-style: dashed; }
+.rows { display: grid; gap: 0.55rem; }
+.row { background: var(--surface); border-radius: 10px; padding: 0.6rem 0.7rem; display: grid; gap: 0.45rem; min-width: 0; }
+.row-label { font-weight: 700; }
+.row .opt { background: transparent; }
+.row .opt[aria-pressed="true"] { background: var(--k); }
+
+.field { display: grid; gap: 0.25rem; min-width: 0; }
+.field label { font-weight: 700; }
+input[type="text"], textarea { width: 100%; padding: 0.55rem 0.7rem; border-radius: 10px; border: 2px solid var(--k); background: var(--surface); line-height: var(--lh); }
+textarea { min-height: 5.2rem; resize: vertical; }
+.other { margin-top: 0.15rem; }
+
+.class-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
+.class-btn { min-height: 44px; padding: 0.4rem 0.85rem; border-radius: 10px; border: 2px solid var(--fo-k); background: var(--surface); cursor: pointer; text-align: left; }
+.class-btn[aria-current="true"] { background: var(--fo-k); color: var(--on-k); font-weight: 700; }
+.class-btn .count { display: block; font-size: 0.75rem; font-weight: 400; }
+.class-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.6rem; margin-block: 0.4rem 0.8rem; }
+.empty { background: var(--surface); border: 2px dashed var(--line); border-radius: 14px; padding: 1.2rem; display: grid; gap: 0.6rem; justify-items: start; }
+.confirm { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem; margin-top: 1.6rem; }
+details.guide { background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 0.6rem 1.1rem; }
+details.guide summary { font-weight: 700; cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+details.guide[open] summary { margin-bottom: 0.6rem; }
+.small { font-size: 0.85rem; color: var(--muted); }
+.copybox { width: 100%; min-height: 12rem; font-size: 0.85rem; }
+.send-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+details.move { background: var(--surface); border: 2px solid var(--line); border-radius: 10px; padding: 0.4rem 0.9rem; }
+details.move summary { font-weight: 700; cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.file-label { display: inline-flex; align-items: center; }
+.file-label input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.file-label:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-inner">
+    <span class="brand">What Helps My Brain at School</span>
+    <span class="status" id="status" role="status" aria-live="polite">Saves on this device</span>
+    <button class="btn quiet" id="btn-settings" type="button" aria-expanded="false" aria-controls="settings">Reading settings</button>
+  </div>
+  <div class="settings" id="settings" hidden>
+    <div class="set-group" role="group" aria-label="Colors">
+      <span>Colors</span>
+      <button class="seg" type="button" data-pref="look" data-val="dark">Dark</button>
+      <button class="seg" type="button" data-pref="look" data-val="light">Light</button>
+      <button class="seg" type="button" data-pref="look" data-val="soft">Soft yellow</button>
+      <button class="seg" type="button" data-pref="look" data-val="auto">Match my device</button>
+    </div>
+    <div class="set-group" role="group" aria-label="Letters">
+      <span>Letters</span>
+      <button class="seg" type="button" data-pref="font" data-val="atkinson" style="font-family:'Atkinson Hyperlegible',Verdana,sans-serif">Atkinson</button>
+      <button class="seg" type="button" data-pref="font" data-val="lexend" style="font-family:'Lexend',Verdana,sans-serif">Lexend</button>
+      <button class="seg" type="button" data-pref="font" data-val="verdana" style="font-family:Verdana,sans-serif">Verdana</button>
+    </div>
+    <div class="set-group" role="group" aria-label="Letter size">
+      <span>Size</span>
+      <button class="seg" type="button" id="size-down" aria-label="Smaller letters">A smaller</button>
+      <button class="seg" type="button" id="size-up" aria-label="Bigger letters">A bigger</button>
+    </div>
+    <div class="set-group" role="group" aria-label="Spacing">
+      <span>Spacing</span>
+      <button class="seg" type="button" data-pref="spacing" data-val="normal">Normal</button>
+      <button class="seg" type="button" data-pref="spacing" data-val="wide">Extra space</button>
+    </div>
+    <div class="set-group" role="group" aria-label="Focus helper">
+      <span>Focus helper</span>
+      <button class="seg" type="button" data-pref="focus" data-val="on">On</button>
+      <button class="seg" type="button" data-pref="focus" data-val="off">Off</button>
+    </div>
+    <div class="set-group" role="group" aria-label="Read aloud buttons" id="voice-group">
+      <span>Read aloud</span>
+      <button class="seg" type="button" data-pref="voice" data-val="on">Show buttons</button>
+      <button class="seg" type="button" data-pref="voice" data-val="off">Hide buttons</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="tabs" id="tabs" aria-label="Parts of the questionnaire"></nav>
+
+  <section id="sec-start">
+    <div class="stack">
+      <div class="band cat-me">
+        <h1>Hi Theo. This is about what helps your brain at school.</h1>
+      </div>
+      <div class="prose">
+        <p>This is not a test. There are no wrong answers, and you won't get in trouble for anything you say here.</p>
+        <p>Your answers help you and Dad figure out what makes school harder, and what could make it easier. Then you two pick the best ideas to bring to school together.</p>
+        <ul>
+          <li>Do one part at a time. Breaks are good.</li>
+          <li>Skip anything you want. You can come back later.</li>
+          <li>If a question is confusing, pick <strong>Not sure</strong> and keep going.</li>
+          <li>Short answers are fine. You can also say your answer out loud and have Dad type it.</li>
+          <li>Your answers save on their own as you go. Use the same device and browser each time, and don't use a private or incognito window, or your answers won't be there next time.</li>
+          <li>When you're done (or done for the day), tap <strong>Send my answers to Dad</strong> at the end of part 5.</li>
+        </ul>
+        <p><strong>Make it easier to read.</strong> Tap <strong>Reading settings</strong> at the top to change the colors, the letters, the size, or the spacing. Tap <strong>Read aloud</strong> on any question to hear it.</p>
+        <p><strong>Colors mean something.</strong> Every question has a color that tells you what it's about:</p>
+      </div>
+      <div class="legend" aria-label="Color key">
+        <div class="cat-me">Green: About me</div>
+        <div class="cat-se">Teal: Senses</div>
+        <div class="cat-fo">Orange: Focus and reading</div>
+        <div class="cat-pe">Purple: People</div>
+        <div class="cat-bo">Pink: Body and energy</div>
+        <div class="cat-he">Blue: Ideas that help</div>
+      </div>
+      <p class="small">Who sees this: your answers stay on this device until you send them to Dad. Only you and Dad see them, and Dad may use Claude to help sort through them. Nothing goes to school unless you both agree.</p>
+
+      <details class="guide">
+        <summary>For Dad: how to run this conversation</summary>
+        <div class="prose">
+          <ul>
+            <li><strong>Keep sittings short.</strong> One part, or one or two classes, at a time. About 15 to 20 minutes.</li>
+            <li><strong>Pick a calm time and place.</strong> His room with the lights low is fine. Not right after a hard day.</li>
+            <li><strong>Let him choose how to answer.</strong> Tapping, typing, or talking while you type.</li>
+            <li><strong>Ask, don't suggest.</strong> Good follow-ups: "Tell me more about that." "What's hard about that?" "Is it the noise, the people, or something else?" "What's different on the days it goes well?"</li>
+            <li><strong>Say back what you heard.</strong> "So when kids talk, you lose your place on the page. Is that right?"</li>
+            <li><strong>Collect first, solve later.</strong> Don't fix, explain, or defend during the interview.</li>
+            <li><strong>"I don't know" is an answer.</strong> Offer two or three choices, or come back to it another day.</li>
+            <li><strong>Nothing he says here leads to a consequence.</strong> Tell him that out loud before you start.</li>
+            <li><strong>When it's done,</strong> have him tap Send my answers to Dad. Then ask Claude to find the email and look for patterns across his classes.</li>
+          </ul>
+          <p class="small">Built on: the Collaborative and Proactive Solutions approach (Dr. Ross Greene) for the empathy-style follow-up questions; the Student-Assisted Functional Assessment Interview (Kern, Dunlap and colleagues) for the "hardest moment" questions; solution-focused interviewing for the "when it goes well" and "one change" questions; the sensory areas occupational therapists use in sensory profiles; Universal Design for Learning; and the British Dyslexia Association style guide plus the Braille Institute's Atkinson Hyperlegible font for the reading settings.</p>
+        </div>
+      </details>
+    </div>
+    <div class="nav"><span></span><button class="btn primary" type="button" data-go="about">Start: About me</button></div>
+  </section>
+
+  <section id="sec-about" hidden>
+    <div class="band cat-me"><h2>About me</h2><p>About 10 minutes. This part is about you in general, not one class.</p></div>
+    <div class="stack" id="list-about"></div>
+    <div class="nav"><button class="btn" type="button" data-go="start">Back</button><button class="btn primary" type="button" data-go="classes">Next: My classes</button></div>
+  </section>
+
+  <section id="sec-classes" hidden>
+    <div class="band cat-fo"><h2>My classes</h2><p>About 10 minutes for each class. Do one class at a time, then take a break.</p></div>
+    <div class="class-bar" id="class-bar"></div>
+    <div id="class-body"></div>
+    <div class="nav"><button class="btn" type="button" data-go="about">Back</button><button class="btn primary" type="button" data-go="day">Next: Rest of the day</button></div>
+  </section>
+
+  <section id="sec-day" hidden>
+    <div class="band cat-se"><h2>Rest of the day</h2><p>About 5 minutes. Hallways, lunch, gym, and the in-between parts.</p></div>
+    <div class="stack" id="list-day"></div>
+    <div class="nav"><button class="btn" type="button" data-go="classes">Back</button><button class="btn primary" type="button" data-go="voice">Next: My voice</button></div>
+  </section>
+
+  <section id="sec-voice" hidden>
+    <div class="band cat-pe"><h2>My voice</h2><p>About 5 minutes. How you like to ask for help, and what gets shared.</p></div>
+    <div class="stack" id="list-voice"></div>
+    <div class="band cat-he" style="margin-top:1rem">
+      <h2>All done?</h2>
+      <p>Great work. Tap the button to send everything to Dad. You can send what you have so far and send again later. The newest email always has all of your answers.</p>
+      <div class="send-row"><button class="btn primary" type="button" id="btn-send">Send my answers to Dad</button></div>
+      <p class="small">This opens your email with your answers already filled in. Just tap Send in your email app.</p>
+      <p class="small">If the email doesn't open, or your answers look cut off, use one of these and get it to Dad another way:</p>
+      <div class="send-row">
+        <button class="btn" type="button" id="btn-copy">Copy my answers</button>
+        <button class="btn" type="button" id="btn-download">Download my answers</button>
+        <span class="small" id="copy-msg" role="status" aria-live="polite"></span>
+      </div>
+      <textarea class="copybox" id="copy-box" hidden aria-label="All answers as text" readonly></textarea>
+      <details class="move">
+        <summary>Switching to a different device?</summary>
+        <div class="prose">
+          <p>Download a backup on this device, then open it on the new one. Your answers will move over.</p>
+          <div class="send-row">
+            <button class="btn" type="button" id="btn-backup">Download backup</button>
+            <label class="btn file-label" for="backup-file">Open backup<input type="file" id="backup-file" accept=".json,application/json"></label>
+          </div>
+          <p class="small" id="backup-msg" role="status" aria-live="polite"></p>
+        </div>
+      </details>
+    </div>
+    <div class="nav"><button class="btn" type="button" data-go="day">Back</button><span></span></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Questions ---------- */
+  var CATS = { me: "About me", se: "Senses", fo: "Focus and reading", pe: "People", bo: "Body and energy", he: "Ideas that help" };
+  var SCALES = {
+    TRUE: ["Not true", "A little true", "Sort of true", "Mostly true", "Very true", "Not sure"],
+    BOTHER: ["Not at all", "A little", "Some", "A lot", "So much I can't think", "Not sure"],
+    ACT: ["Doesn't happen", "Easy", "OK", "Hard", "Very hard", "Not sure"],
+    DAY: ["Easy", "OK", "Hard", "Very hard", "Not sure"],
+    HELP: ["Would help a lot", "Might help", "Wouldn't help", "Not sure"],
+    ENERGY: ["Low", "OK", "Good", "My best", "Not sure"],
+    FREQ: ["Almost never", "About once a week", "A few times a week", "Almost every day", "Not sure"]
+  };
+
+  var ABOUT = [
+    { id: "strengths", cat: "me", type: "many", q: "What are you good at? Pick all that fit.",
+      options: ["Math", "Remembering facts", "Noticing patterns and details", "Crochet and making things", "Drawing or designing", "Computers and games", "Reading about things I like", "Explaining how things work", "Being honest", "Being kind to people"], other: true },
+    { id: "interests", cat: "me", type: "long", q: "What do you like to do or think about in your free time?", hint: "Shows, games, crafts, topics, anything." },
+    { id: "senses", cat: "se", type: "grid", scale: "BOTHER", q: "How much do these bother you at school?", hint: "Think about a normal school day.",
+      rows: ["People talking near me", "Loud or sudden noises (bells, yelling, chairs scraping)", "Background noise (humming lights, fans, the hallway)", "Bright or flickering lights", "Smells (cafeteria food, perfume, cleaning spray)", "How things feel (clothes, chairs, someone bumping me)", "Crowds, or people standing close to me", "Being too hot or too cold", "Busy walls, or a lot of movement around me"] },
+    { id: "signals", cat: "bo", type: "many", q: "When school gets to be too much, what happens to you? Pick all that fit.",
+      options: ["I can't follow what I'm reading", "I read the same line over and over", "I zone out or stare", "I doodle or fidget more", "I get a headache", "I feel hot or sweaty", "My heart beats fast", "I want to cover my ears", "I get grumpy or snap at people", "I want to leave the room", "I stop talking or shut down", "I feel very tired", "I feel like crying"], other: true },
+    { id: "reset", cat: "bo", type: "many", q: "What helps you feel better when it's too much? Pick all that fit.",
+      options: ["A quiet place", "Dimmer lights", "Headphones", "Music", "Walking or moving around", "A drink of water", "Doodling or fidgeting", "A few minutes alone", "Crocheting", "Slow breathing", "Talking to someone I trust"], other: true },
+    { id: "energy", cat: "bo", type: "grid", scale: "ENERGY", q: "How good is your focus at different times of the day?",
+      rows: ["Before school", "First and second period", "Late morning", "Right after lunch", "Last classes of the day", "Homework time", "Evening"] },
+    { id: "hiding", cat: "pe", type: "one", q: "Do you ever hide how you feel at school so you look calm, even when you feel stressed inside?",
+      hint: "Lots of people do this. It can use up a lot of energy.", options: ["Never", "Sometimes", "Often", "Almost always", "Not sure"] },
+    { id: "afterSchool", cat: "bo", type: "one", q: "How do you usually feel when you get home from school?",
+      options: ["Fine", "A little tired", "Very tired", "Wiped out. I need to be alone.", "Not sure"] },
+    { id: "readEasy", cat: "fo", type: "many", q: "What makes reading easier for you? Pick all that fit.",
+      options: ["Bigger letters", "More space between lines", "Light letters on a dark background", "Dark letters on a light background", "A soft colored background", "Color-coded sections", "Short paragraphs", "Bullet points", "Hearing it read aloud while I follow along", "Reading on a screen", "Reading on paper", "A ruler or line marker to keep my place", "A quiet room", "A book about something I'm interested in"], other: true },
+    { id: "readHard", cat: "fo", type: "many", q: "What makes reading harder for you? Pick all that fit.",
+      options: ["Small print", "Long paragraphs", "Crowded pages", "Glare from bright white paper or screens", "People talking nearby", "Being rushed", "Reading out loud in front of the class", "A topic I don't care about", "Not knowing why I'm reading it"], other: true }
+  ];
+
+  var CLASSQ = [
+    { id: "quick", cat: "fo", type: "grid", scale: "TRUE", q: "How true are these for this class?",
+      rows: ["I like this class.", "It's easy for me to focus in here.", "The room is quiet enough for me.", "My seat works for me.", "I understand what I'm supposed to do.", "I feel OK asking this teacher for help.", "I still have energy left when this class ends."] },
+    { id: "activities", cat: "fo", type: "grid", scale: "ACT", q: "What happens in this class, and how hard is each part for you?",
+      hint: "If something never happens in this class, pick Doesn't happen.",
+      rows: ["Do Now or warm-up", "Independent reading", "Teacher talking to the whole class", "Taking notes", "Working alone (worksheet or Chromebook)", "Working with a partner or group", "Class discussion", "Reading out loud", "Tests and quizzes", "Watching videos", "Projects", "Switching from one activity to the next"] },
+    { id: "bothers", cat: "se", type: "many", q: "What bothers you in this room? Pick all that fit.",
+      options: ["Kids talking near me", "Noise from the hallway", "Chairs or desks scraping", "Lights too bright or flickering", "Sitting near the door", "People walking behind me", "Smells", "Too hot or too cold", "Too much stuff on the walls", "Not knowing what's coming next", "Getting called on without warning", "Being rushed", "Nothing really"], other: true },
+    { id: "seatNow", cat: "se", type: "one", q: "Where do you sit now?",
+      options: ["Front", "Middle", "Back", "Near the door", "Near a window", "Near the teacher", "It changes", "Not sure"] },
+    { id: "seatWant", cat: "se", type: "many", q: "Where would you like to sit? Pick all that fit.",
+      options: ["Front", "Back", "Near the teacher", "Away from kids who talk", "In a corner", "Away from the door", "Near a window", "Away from a window", "It doesn't matter"], other: true },
+    { id: "hardMoment", cat: "pe", type: "story", q: "Think about a time in this class when it was really hard to focus, or you felt stuck.",
+      hint: "Answer what you can. Short answers are fine.",
+      parts: [
+        { id: "when", label: "When did it happen?", ph: "Example: start of class, during reading time, last Tuesday" },
+        { id: "task", label: "What were you supposed to be doing?", ph: "" },
+        { id: "around", label: "What was going on around you?", ph: "Who was talking? What could you hear or see?" },
+        { id: "inside", label: "What was going on in your head or body?", ph: "" },
+        { id: "did", label: "What did you do?", ph: "" },
+        { id: "after", label: "What happened after that?", ph: "" }
+      ] },
+    { id: "howOften", cat: "fo", type: "one", q: "How often does something like that happen in this class?", options: SCALES.FREQ },
+    { id: "goodDay", cat: "me", type: "long", q: "Think about a day when this class went well. What was different that day?",
+      hint: "Maybe it was quieter, you liked the topic, you sat somewhere else, or you knew the plan." },
+    { id: "ideas", cat: "he", type: "grid", scale: "HELP", q: "Would any of these help you in this class?",
+      rows: ["Noise-canceling headphones during quiet work", "A seat away from kids who talk", "A seat near the teacher", "Directions written down, not just said out loud", "Knowing the plan for class ahead of time", "A heads-up before changes or switching activities", "Big assignments broken into smaller steps", "Extra time on tests or assignments", "Taking tests in a quieter room", "Reading on a screen where I can change the size and colors", "An audiobook or read-aloud along with the text", "A quick check-in with the teacher at the start of class", "A private signal to ask for help or a break", "A short break to step out and reset", "Being allowed to doodle or fidget while listening", "Typing instead of handwriting", "Copies of notes or slides", "Picking reading books about topics I like", "Not being called on to read out loud without warning"] },
+    { id: "ideasOther", cat: "he", type: "long", q: "Any other ideas that would help in this class?" },
+    { id: "oneChange", cat: "he", type: "long", q: "If you could change one thing about this class to make it easier for your brain, what would it be?" },
+    { id: "teacherKnows", cat: "pe", type: "one", q: "Does this teacher know what helps you?", options: ["Yes", "A little", "No", "Not sure"] },
+    { id: "okShare", cat: "pe", type: "one", q: "Is it OK for Dad or the counselor to talk with this teacher about your ideas?",
+      options: ["Yes", "Yes, and I want to be there", "Ask me first", "No", "Not sure"] }
+  ];
+
+  var DAYQ = [
+    { id: "places", cat: "se", type: "grid", scale: "DAY", q: "How hard are these parts of the school day?",
+      rows: ["Getting to school and arriving", "Hallways between classes", "Lunch and the cafeteria", "Gym and the locker room", "Assemblies and fire drills", "A substitute teacher or a change in the schedule", "Keeping track of homework", "Bringing things home and back", "Group projects", "Tests in general"] },
+    { id: "calmPlace", cat: "me", type: "long", q: "Is there a place at school where you feel calm?" },
+    { id: "trusted", cat: "pe", type: "long", q: "Is there an adult at school you trust, or feel OK talking to?" },
+    { id: "dayOther", cat: "fo", type: "long", q: "Is anything else about the school day hard for you?" }
+  ];
+
+  var VOICEQ = [
+    { id: "askHelp", cat: "pe", type: "many", q: "How do you like to ask for help? Pick all that fit.",
+      options: ["Raise my hand", "Go up to the teacher's desk", "Talk after class", "Send an email or message", "A private signal or card", "Have Dad or the counselor ask for me", "I usually don't ask"], other: true },
+    { id: "knowMe", cat: "me", type: "long", q: "What do you want your teachers to know about you?", hint: "Things you're good at, what helps, what doesn't." },
+    { id: "private", cat: "pe", type: "long", q: "Is there anything you do NOT want shared with your teachers?", hint: "We will respect this." },
+    { id: "top3", cat: "he", type: "three", q: "What three changes would help you the most, in any class?", labels: ["Most helpful", "Second", "Third"] },
+    { id: "meeting", cat: "pe", type: "one", q: "Do you want to be part of the meeting when we talk with the school about this?", options: ["Yes", "Maybe", "No", "Not sure"] },
+    { id: "feel", cat: "me", type: "one", q: "How was filling this out?", options: ["Easy", "OK", "Hard", "Too long", "Not sure"] },
+    { id: "better", cat: "me", type: "long", q: "What would have made it easier?" }
+  ];
+
+  var SECTIONS = [
+    { id: "start", label: "1. Start here" },
+    { id: "about", label: "2. About me", schema: ABOUT },
+    { id: "classes", label: "3. My classes" },
+    { id: "day", label: "4. Rest of the day", schema: DAYQ },
+    { id: "voice", label: "5. My voice", schema: VOICEQ }
+  ];
+
+  /* ---------- Storage helpers ---------- */
+  var LS_STATE = "tq-state-v1", LS_PREFS = "tq-prefs-v1", LS_UI = "tq-ui-v1";
+  function lsGet(k) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function clone(o) { return JSON.parse(JSON.stringify(o == null ? {} : o)); }
+
+  function emptyState() { return { about: {}, day: {}, voice: {}, classes: {} }; }
+  function normalize(s) {
+    s = s && typeof s === "object" ? s : emptyState();
+    ["about", "day", "voice", "classes"].forEach(function (k) { if (!s[k] || typeof s[k] !== "object") s[k] = {}; });
+    Object.keys(s.classes).forEach(function (id) {
+      var c = s.classes[id];
+      if (!c || typeof c !== "object") { delete s.classes[id]; return; }
+      c.id = id;
+      if (!c.answers || typeof c.answers !== "object") c.answers = {};
+    });
+    return s;
+  }
+  var saved = lsGet(LS_STATE);
+  var state = normalize(saved);
+  if (!saved) state.classes["class-ela"] = { id: "class-ela", order: 1, teacher: "Mrs. McGarvey", subject: "ELA (English)", period: "", adults: "", answers: {} };
+  var ui = lsGet(LS_UI) || { section: "start", cls: null };
+
+  /* ---------- DOM helper ---------- */
+  function el(tag, props) {
+    var n = document.createElement(tag);
+    if (props) {
+      Object.keys(props).forEach(function (k) {
+        var v = props[k];
+        if (v == null || v === false) return;
+        if (k === "class") n.className = v;
+        else if (k === "text") n.textContent = v;
+        else if (k.slice(0, 2) === "on") n.addEventListener(k.slice(2), v);
+        else n.setAttribute(k, v === true ? "" : v);
+      });
+    }
+    for (var i = 2; i < arguments.length; i++) {
+      var c = arguments[i];
+      if (c == null || c === false) continue;
+      if (Array.isArray(c)) c.forEach(function (x) { if (x != null && x !== false) n.append(x.nodeType ? x : document.createTextNode(String(x))); });
+      else n.append(c.nodeType ? c : document.createTextNode(String(c)));
+    }
+    return n;
+  }
+
+  /* ---------- Reading preferences ---------- */
+  var root = document.documentElement;
+  var hasVoice = "speechSynthesis" in window && typeof window.SpeechSynthesisUtterance === "function";
+  var prefs = Object.assign({ look: "auto", font: "atkinson", size: 19, spacing: "normal", focus: "off", voice: "on" }, lsGet(LS_PREFS) || {});
+  function applyPrefs() {
+    if (prefs.look === "auto") root.removeAttribute("data-look"); else root.setAttribute("data-look", prefs.look);
+    root.setAttribute("data-font", prefs.font);
+    root.setAttribute("data-spacing", prefs.spacing);
+    root.setAttribute("data-focus", prefs.focus);
+    root.setAttribute("data-voice", hasVoice ? prefs.voice : "off");
+    root.style.setProperty("--base", prefs.size + "px");
+    document.querySelectorAll(".seg[data-pref]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(prefs[b.dataset.pref] === b.dataset.val));
+    });
+    lsSet(LS_PREFS, prefs);
+  }
+  if (!hasVoice) { var vg = document.getElementById("voice-group"); if (vg) vg.hidden = true; }
+  document.querySelectorAll(".seg[data-pref]").forEach(function (b) {
+    b.addEventListener("click", function () { prefs[b.dataset.pref] = b.dataset.val; applyPrefs(); });
+  });
+  document.getElementById("size-down").addEventListener("click", function () { prefs.size = Math.max(16, prefs.size - 1); applyPrefs(); });
+  document.getElementById("size-up").addEventListener("click", function () { prefs.size = Math.min(28, prefs.size + 1); applyPrefs(); });
+  var setBtn = document.getElementById("btn-settings"), setPanel = document.getElementById("settings");
+  setBtn.addEventListener("click", function () {
+    var open = setPanel.hidden;
+    setPanel.hidden = !open;
+    setBtn.setAttribute("aria-expanded", String(open));
+  });
+  applyPrefs();
+
+  /* ---------- Read aloud ---------- */
+  var speakingBtn = null;
+  function stopSpeaking() {
+    if (hasVoice) window.speechSynthesis.cancel();
+    if (speakingBtn) { speakingBtn.setAttribute("aria-pressed", "false"); speakingBtn.textContent = "Read aloud"; }
+    speakingBtn = null;
+  }
+  function speak(text, btn) {
+    if (!hasVoice) return;
+    if (speakingBtn === btn) { stopSpeaking(); return; }
+    stopSpeaking();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.92;
+    u.onend = function () { if (speakingBtn === btn) stopSpeaking(); };
+    speakingBtn = btn;
+    btn.setAttribute("aria-pressed", "true");
+    btn.textContent = "Stop";
+    window.speechSynthesis.speak(u);
+  }
+  function speechText(q) {
+    var t = q.q;
+    if (q.hint) t += " " + q.hint;
+    if (q.type === "one" || q.type === "many") t += " Choices: " + q.options.join(". ") + ".";
+    if (q.type === "grid") t += " For each one, you can pick: " + SCALES[q.scale].join(", ") + ". Here they are: " + q.rows.join(". ") + ".";
+    if (q.type === "story") t += " " + q.parts.map(function (p) { return p.label; }).join(" ");
+    if (q.type === "three") t += " Type up to three ideas.";
+    return t;
+  }
+
+  /* ---------- Values ---------- */
+  function scopeObj(scope) { return scope.indexOf("class-") === 0 ? (state.classes[scope] ? state.classes[scope].answers : null) : state[scope]; }
+  function getVal(scope, qid) { var o = scopeObj(scope); return o ? o[qid] : undefined; }
+  function setVal(scope, qid, v) {
+    var o = scopeObj(scope);
+    if (!o) return;
+    o[qid] = v;
+    markDirty(scope);
+    updateCounts();
+  }
+  function isAnswered(q, v) {
+    if (v == null) return false;
+    switch (q.type) {
+      case "text": case "long": return String(v).trim() !== "";
+      case "one": return !!v;
+      case "many": return !!((v.picks && v.picks.length) || (v.other && v.other.trim()));
+      case "grid": return Object.keys(v).length > 0;
+      case "story": case "three": return Object.keys(v).some(function (k) { return String(v[k] || "").trim() !== ""; });
+    }
+    return false;
+  }
+
+  /* ---------- Saving (this device only) ---------- */
+  var statusEl = document.getElementById("status");
+  var canStore = (function () { try { localStorage.setItem("tq-test", "1"); localStorage.removeItem("tq-test"); return true; } catch (e) { return false; } })();
+  function setStatus() {
+    if (canStore) { statusEl.textContent = "Saved on this device"; statusEl.dataset.kind = "saved"; }
+    else { statusEl.textContent = "Can't save here. Send your answers to Dad before you close this page."; statusEl.dataset.kind = "error"; }
+  }
+  function saveLocal() { lsSet(LS_STATE, state); }
+  function markDirty() { saveLocal(); setStatus(); }
+
+  /* ---------- Question rendering ---------- */
+  function optButton(label, pressed, onClick) {
+    return el("button", { type: "button", class: "opt" + (label === "Not sure" ? " unsure" : ""), "aria-pressed": String(!!pressed), onclick: onClick }, label);
+  }
+  function renderQ(scope, q) {
+    var idBase = scope + "-" + q.id;
+    var v = getVal(scope, q.id);
+    var readBtn = el("button", { type: "button", class: "read", "aria-pressed": "false", "aria-label": "Read this question aloud" }, "Read aloud");
+    readBtn.addEventListener("click", function () { speak(speechText(q), readBtn); });
+    var block = el("div", { class: "q cat-" + q.cat, id: "q-" + idBase },
+      el("div", { class: "meta" }, el("span", { class: "chip" }, CATS[q.cat]), readBtn),
+      el("h3", { id: idBase + "-label" }, q.q),
+      q.hint ? el("p", { class: "hint" }, q.hint) : null
+    );
+
+    if (q.type === "text" || q.type === "long") {
+      var inp = q.type === "long"
+        ? el("textarea", { id: idBase, "aria-labelledby": idBase + "-label", rows: "3", placeholder: "Type here, or leave it blank" })
+        : el("input", { type: "text", id: idBase, "aria-labelledby": idBase + "-label" });
+      inp.value = v || "";
+      inp.addEventListener("input", function () { setVal(scope, q.id, inp.value); });
+      block.append(inp);
+    }
+
+    if (q.type === "one") {
+      var grp = el("div", { class: "opts", role: "group", "aria-labelledby": idBase + "-label" });
+      q.options.forEach(function (o) {
+        var b = optButton(o, v === o, function () {
+          var cur = getVal(scope, q.id);
+          var next = cur === o ? "" : o;
+          grp.querySelectorAll(".opt").forEach(function (x) { x.setAttribute("aria-pressed", String(x.textContent === next)); });
+          setVal(scope, q.id, next);
+        });
+        grp.append(b);
+      });
+      block.append(grp);
+    }
+
+    if (q.type === "many") {
+      var mv = v && typeof v === "object" ? v : { picks: [], other: "" };
+      var grpM = el("div", { class: "opts", role: "group", "aria-labelledby": idBase + "-label" });
+      q.options.forEach(function (o) {
+        var b = optButton(o, (mv.picks || []).indexOf(o) >= 0, function () {
+          var cur = getVal(scope, q.id);
+          cur = cur && typeof cur === "object" ? { picks: (cur.picks || []).slice(), other: cur.other || "" } : { picks: [], other: "" };
+          var i = cur.picks.indexOf(o);
+          if (i >= 0) cur.picks.splice(i, 1); else cur.picks.push(o);
+          b.setAttribute("aria-pressed", String(i < 0));
+          setVal(scope, q.id, cur);
+        });
+        grpM.append(b);
+      });
+      block.append(grpM);
+      if (q.other) {
+        var oi = el("input", { type: "text", id: idBase + "-other", placeholder: "Something else? Type it here" });
+        oi.value = mv.other || "";
+        oi.addEventListener("input", function () {
+          var cur = getVal(scope, q.id);
+          cur = cur && typeof cur === "object" ? { picks: (cur.picks || []).slice(), other: oi.value } : { picks: [], other: oi.value };
+          setVal(scope, q.id, cur);
+        });
+        block.append(el("div", { class: "field other" }, el("label", { for: idBase + "-other" }, "Other"), oi));
+      }
+    }
+
+    if (q.type === "grid") {
+      var gv = v && typeof v === "object" ? v : {};
+      var rows = el("div", { class: "rows" });
+      q.rows.forEach(function (r, ri) {
+        var labId = idBase + "-r" + ri;
+        var grpR = el("div", { class: "opts", role: "group", "aria-labelledby": labId });
+        SCALES[q.scale].forEach(function (o) {
+          var b = optButton(o, gv[r] === o, function () {
+            var cur = clone(getVal(scope, q.id) || {});
+            if (cur[r] === o) delete cur[r]; else cur[r] = o;
+            grpR.querySelectorAll(".opt").forEach(function (x) { x.setAttribute("aria-pressed", String(cur[r] === x.textContent)); });
+            setVal(scope, q.id, cur);
+          });
+          grpR.append(b);
+        });
+        rows.append(el("div", { class: "row" }, el("div", { class: "row-label", id: labId }, r), grpR));
+      });
+      block.append(rows);
+    }
+
+    if (q.type === "story") {
+      var sv = v && typeof v === "object" ? v : {};
+      q.parts.forEach(function (p) {
+        var pid = idBase + "-" + p.id;
+        var ta = el("textarea", { id: pid, rows: "2", placeholder: p.ph || "" });
+        ta.value = sv[p.id] || "";
+        ta.addEventListener("input", function () {
+          var cur = clone(getVal(scope, q.id) || {});
+          cur[p.id] = ta.value;
+          setVal(scope, q.id, cur);
+        });
+        block.append(el("div", { class: "field" }, el("label", { for: pid }, p.label), ta));
+      });
+    }
+
+    if (q.type === "three") {
+      var tv = v && typeof v === "object" ? v : {};
+      q.labels.forEach(function (lab, i) {
+        var tid = idBase + "-t" + i;
+        var ti = el("input", { type: "text", id: tid });
+        ti.value = tv["t" + i] || "";
+        ti.addEventListener("input", function () {
+          var cur = clone(getVal(scope, q.id) || {});
+          cur["t" + i] = ti.value;
+          setVal(scope, q.id, cur);
+        });
+        block.append(el("div", { class: "field" }, el("label", { for: tid }, (i + 1) + ". " + lab), ti));
+      });
+    }
+    return block;
+  }
+
+  function renderList(scope, schema) {
+    var box = document.getElementById("list-" + scope);
+    box.replaceChildren();
+    schema.forEach(function (q) { box.append(renderQ(scope, q)); });
+  }
+
+  /* ---------- Classes ---------- */
+  var PERIODS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Not sure"];
+  var confirmingRemove = false;
+  function classList() {
+    return Object.keys(state.classes).map(function (k) { return state.classes[k]; }).sort(function (a, b) {
+      var pa = parseInt(a.period, 10), pb = parseInt(b.period, 10);
+      pa = isNaN(pa) ? 99 : pa; pb = isNaN(pb) ? 99 : pb;
+      return pa - pb || (a.order || 0) - (b.order || 0);
+    });
+  }
+  function className(c) {
+    var name = (c.subject || "").trim() || "New class";
+    var t = (c.teacher || "").trim();
+    return t ? name + " with " + t : name;
+  }
+  function classCount(c) {
+    var n = 0;
+    CLASSQ.forEach(function (q) { if (isAnswered(q, c.answers[q.id])) n++; });
+    return n + " of " + CLASSQ.length + " answered";
+  }
+  function addClass() {
+    var id = "class-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+    var max = 0;
+    classList().forEach(function (c) { max = Math.max(max, c.order || 0); });
+    state.classes[id] = { id: id, order: max + 1, teacher: "", subject: "", period: "", adults: "", answers: {} };
+    ui.cls = id; lsSet(LS_UI, ui);
+    markDirty(id);
+    renderClasses();
+    updateCounts();
+    var first = document.getElementById(id + "-subject");
+    if (first) first.focus();
+  }
+  function removeClass(id) {
+    delete state.classes[id];
+    saveLocal();
+    ui.cls = null; lsSet(LS_UI, ui);
+    confirmingRemove = false;
+    renderClasses();
+    updateCounts();
+  }
+  function renderClasses() {
+    var bar = document.getElementById("class-bar"), body = document.getElementById("class-body");
+    bar.replaceChildren(); body.replaceChildren();
+    var list = classList();
+    if (!state.classes[ui.cls]) ui.cls = list.length ? list[0].id : null;
+
+    list.forEach(function (c) {
+      var b = el("button", { type: "button", class: "class-btn", "aria-current": String(c.id === ui.cls), "data-cls": c.id },
+        el("span", { class: "cname" }, className(c)), el("span", { class: "count" }, classCount(c)));
+      b.addEventListener("click", function () { ui.cls = c.id; lsSet(LS_UI, ui); confirmingRemove = false; stopSpeaking(); renderClasses(); });
+      bar.append(b);
+    });
+    bar.append(el("button", { type: "button", class: "btn", onclick: addClass }, "Add a class"));
+
+    if (!ui.cls) {
+      body.append(el("div", { class: "empty" },
+        el("strong", null, "No classes yet."),
+        el("p", { style: "margin:0" }, "Add one class at a time. Start with the class that feels hardest, or the one that's easiest to talk about."),
+        el("button", { type: "button", class: "btn primary", onclick: addClass }, "Add my first class")));
+      return;
+    }
+
+    var c = state.classes[ui.cls];
+    var scope = c.id;
+    var heading = el("h2", { id: "class-heading" }, className(c));
+    var removeArea = el("div", { class: "confirm" });
+    function drawRemove() {
+      removeArea.replaceChildren();
+      if (!confirmingRemove) {
+        removeArea.append(el("button", { type: "button", class: "btn quiet", onclick: function () { confirmingRemove = true; drawRemove(); } }, "Remove this class"));
+      } else {
+        removeArea.append(el("span", null, "Remove this class and its answers?"),
+          el("button", { type: "button", class: "btn", onclick: function () { removeClass(scope); } }, "Yes, remove it"),
+          el("button", { type: "button", class: "btn quiet", onclick: function () { confirmingRemove = false; drawRemove(); } }, "Keep it"));
+      }
+    }
+    drawRemove();
+    body.append(el("div", { class: "class-head" }, heading, removeArea));
+
+    function refreshName() {
+      heading.textContent = className(c);
+      var btn = bar.querySelector('[data-cls="' + scope + '"] .cname');
+      if (btn) btn.textContent = className(c);
+    }
+    function infoField(key, label, hint) {
+      var fid = scope + "-" + key;
+      var i = el("input", { type: "text", id: fid });
+      i.value = c[key] || "";
+      i.addEventListener("input", function () { c[key] = i.value; markDirty(scope); refreshName(); });
+      return el("div", { class: "field" }, el("label", { for: fid }, label), hint ? el("span", { class: "hint" }, hint) : null, i);
+    }
+    var periodGrp = el("div", { class: "opts", role: "group", "aria-labelledby": scope + "-period-label" });
+    PERIODS.forEach(function (p) {
+      periodGrp.append(optButton(p, c.period === p, function () {
+        c.period = c.period === p ? "" : p;
+        periodGrp.querySelectorAll(".opt").forEach(function (x) { x.setAttribute("aria-pressed", String(x.textContent === c.period)); });
+        markDirty(scope);
+      }));
+    });
+    body.append(el("div", { class: "q cat-fo", style: "margin-bottom:1rem" },
+      el("div", { class: "meta" }, el("span", { class: "chip" }, "This class")),
+      el("h3", null, "Which class is this?"),
+      infoField("subject", "Class", "Example: ELA, Math, Science"),
+      infoField("teacher", "Teacher's name", null),
+      el("div", { class: "field" }, el("span", { id: scope + "-period-label", style: "font-weight:700" }, "Period"), periodGrp),
+      infoField("adults", "Other adults in the room", "Like a second teacher or an aide. Leave blank if there aren't any.")
+    ));
+    var stack = el("div", { class: "stack" });
+    CLASSQ.forEach(function (q) { stack.append(renderQ(scope, q)); });
+    body.append(stack);
+    body.append(el("div", { class: "band cat-he", style: "margin-top:1rem" },
+      el("strong", null, "Done with this class?"),
+      el("p", null, "Take a break if you need one. When you're ready, add your next class or move on."),
+      el("div", { class: "opts" }, el("button", { type: "button", class: "btn", onclick: addClass }, "Add another class"))));
+  }
+
+  /* ---------- Tabs and navigation ---------- */
+  function sectionCount(s) {
+    if (s.id === "start") return "How this works";
+    if (s.id === "classes") { var n = Object.keys(state.classes).length; return n === 1 ? "1 class" : n + " classes"; }
+    var done = 0;
+    s.schema.forEach(function (q) { if (isAnswered(q, state[s.id][q.id])) done++; });
+    return done + " of " + s.schema.length + " answered";
+  }
+  function renderTabs() {
+    var tabs = document.getElementById("tabs");
+    tabs.replaceChildren();
+    SECTIONS.forEach(function (s) {
+      var b = el("button", { type: "button", class: "tab", "aria-current": s.id === ui.section ? "page" : null, "data-tab": s.id },
+        el("span", null, s.label), el("span", { class: "count" }, sectionCount(s)));
+      b.addEventListener("click", function () { show(s.id); });
+      tabs.append(b);
+    });
+  }
+  function updateCounts() {
+    SECTIONS.forEach(function (s) {
+      var t = document.querySelector('[data-tab="' + s.id + '"] .count');
+      if (t) t.textContent = sectionCount(s);
+    });
+    if (ui.cls && state.classes[ui.cls]) {
+      var cb = document.querySelector('[data-cls="' + ui.cls + '"] .count');
+      if (cb) cb.textContent = classCount(state.classes[ui.cls]);
+    }
+  }
+  function show(id) {
+    stopSpeaking();
+    ui.section = id; lsSet(LS_UI, ui);
+    SECTIONS.forEach(function (s) { document.getElementById("sec-" + s.id).hidden = s.id !== id; });
+    renderTabs();
+    if (id === "classes") renderClasses();
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll("[data-go]").forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.go); }); });
+
+  /* ---------- Copy all answers ---------- */
+  function fmt(q, v) {
+    if (!isAnswered(q, v)) return "(skipped)";
+    switch (q.type) {
+      case "text": case "long": return String(v).trim();
+      case "one": return v;
+      case "many": var a = (v.picks || []).slice(); if (v.other && v.other.trim()) a.push("Other: " + v.other.trim()); return a.join("; ");
+      case "grid": return "\n" + q.rows.map(function (r) { return "   - " + r + " " + (v[r] || "(skipped)"); }).join("\n");
+      case "story": return "\n" + q.parts.map(function (p) { return "   - " + p.label + " " + (String(v[p.id] || "").trim() || "(skipped)"); }).join("\n");
+      case "three": return "\n" + q.labels.map(function (l, i) { return "   " + (i + 1) + ". " + (String(v["t" + i] || "").trim() || "(skipped)"); }).join("\n");
+    }
+    return "";
+  }
+  function block(title, schema, obj) {
+    return "== " + title + " ==\n" + schema.map(function (q) { return "Q: " + q.q + "\nA: " + fmt(q, obj[q.id]); }).join("\n\n");
+  }
+  function allText() {
+    var parts = ["THEO'S SCHOOL QUESTIONNAIRE\nSent " + new Date().toLocaleString(), block("About me", ABOUT, state.about)];
+    classList().forEach(function (c) {
+      parts.push("== Class: " + className(c) + " (period " + (c.period || "?") + ")" + (c.adults ? ", other adults: " + c.adults : "") + " ==\n" +
+        CLASSQ.map(function (q) { return "Q: " + q.q + "\nA: " + fmt(q, c.answers[q.id]); }).join("\n\n"));
+    });
+    parts.push(block("Rest of the day", DAYQ, state.day));
+    parts.push(block("My voice", VOICEQ, state.voice));
+    return parts.join("\n\n\n");
+  }
+  var DAD_EMAIL = "srutledge1283@gmail.com";
+  function today() { var d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function saveFile(name, text, type) {
+    var url = URL.createObjectURL(new Blob([text], { type: type }));
+    var a = document.createElement("a");
+    a.href = url; a.download = name;
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+  }
+  document.getElementById("btn-send").addEventListener("click", function () {
+    var body = allText().replace(/\r?\n/g, "\r\n");
+    window.location.href = "mailto:" + DAD_EMAIL + "?subject=" + encodeURIComponent("Theo's school questionnaire answers") + "&body=" + encodeURIComponent(body);
+  });
+  document.getElementById("btn-copy").addEventListener("click", function () {
+    var text = allText(), msg = document.getElementById("copy-msg"), box = document.getElementById("copy-box");
+    function fallback() { box.value = text; box.hidden = false; box.focus(); box.select(); msg.textContent = "Select all the text in the box and copy it."; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { msg.textContent = "Copied. Paste it into a message to Dad."; }, fallback);
+    } else fallback();
+  });
+  document.getElementById("btn-download").addEventListener("click", function () {
+    saveFile("theo-answers-" + today() + ".txt", allText(), "text/plain");
+    document.getElementById("copy-msg").textContent = "Downloaded. Send the file to Dad.";
+  });
+  document.getElementById("btn-backup").addEventListener("click", function () {
+    saveFile("theo-backup-" + today() + ".json", JSON.stringify({ app: "my-brain-at-school", version: 1, savedAt: new Date().toISOString(), state: state }, null, 2), "application/json");
+    document.getElementById("backup-msg").textContent = "Backup downloaded. Open it on your other device.";
+  });
+  document.getElementById("backup-file").addEventListener("change", function (ev) {
+    var f = ev.target.files && ev.target.files[0], msg = document.getElementById("backup-msg");
+    if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var data = JSON.parse(String(r.result));
+        if (!data || data.app !== "my-brain-at-school" || !data.state) throw new Error("not a backup");
+        state = normalize(data.state);
+        saveLocal();
+        ui.cls = null; lsSet(LS_UI, ui);
+        renderList("about", ABOUT); renderList("day", DAYQ); renderList("voice", VOICEQ);
+        renderTabs();
+        msg.textContent = "Backup opened. Your answers are back.";
+      } catch (e) {
+        msg.textContent = "That file isn't a backup from this page. Pick the file that starts with theo-backup.";
+      }
+      ev.target.value = "";
+    };
+    r.readAsText(f);
+  });
+
+  /* ---------- Start up ---------- */
+  function renderAll() {
+    renderList("about", ABOUT);
+    renderList("day", DAYQ);
+    renderList("voice", VOICEQ);
+    show(SECTIONS.some(function (s) { return s.id === ui.section; }) ? ui.section : "start");
+  }
+  renderAll();
+  saveLocal();
+  setStatus();
+})();
+</script>
+</body>
+</html>
